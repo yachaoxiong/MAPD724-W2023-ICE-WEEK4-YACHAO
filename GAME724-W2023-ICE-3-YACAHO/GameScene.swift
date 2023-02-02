@@ -51,9 +51,16 @@ class GameScene: SKScene
             addChild(cloud)
         }
         
-      // preload / prewarm impulse sounds
+        // Engine Sound - Background noise / music
+        let engineSound = SKAudioNode(fileNamed: "engine.mp3")
+        addChild(engineSound)
+        engineSound.autoplayLooped = true
+        engineSound.run(SKAction.changeVolume(to: 0.5, duration: 0))
+        
+        
+        // preload / prewarm impulse sounds
         do
-       {
+        {
             let sounds: [String] = ["thunder", "yay"]
             for sound in sounds
             {
@@ -65,10 +72,9 @@ class GameScene: SKScene
         }
         catch
         {
-
+            
         }
     }
-    
     
     func touchDown(atPoint pos : CGPoint)
     {
@@ -124,4 +130,3 @@ class GameScene: SKScene
         
     }
 }
-
