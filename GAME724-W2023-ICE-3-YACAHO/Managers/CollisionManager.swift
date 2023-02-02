@@ -5,7 +5,7 @@ class CollisionManager
 {
     // get a reference to the GameViewController
     public static var gameViewController : GameViewController?
-
+    
     // Utility Functions
     public static func SquaredDistance(point1: CGPoint, point2: CGPoint) -> CGFloat
     {
@@ -13,7 +13,7 @@ class CollisionManager
         let Ys: CGFloat = point2.y - point1.y
         return Xs * Xs + Ys * Ys
     }
-
+    
     // Collision Function
     public static func SquaredRadiusCheck(scene: SKScene, object1: GameObject, object2: GameObject)
     {
@@ -22,7 +22,7 @@ class CollisionManager
         let P1Radius = object1.halfHeight!
         let P2Radius = object2.halfHeight!
         let Radii = P1Radius + P2Radius
-
+        
         // the collision check - overlapping circles
         if(SquaredDistance(point1: P1, point2: P2) < Radii * Radii)
         {
@@ -33,15 +33,19 @@ class CollisionManager
                 switch(object2.name)
                 {
                 case "island":
+                    ScoreManager.Score += 100
+                    gameViewController?.updateScoreLabel()
                     scene.run(SKAction.playSoundFileNamed("yay", waitForCompletion: false))
                     break
                 case "cloud":
+                    ScoreManager.Lives -= 1
+                    gameViewController?.updateLivesLabel()
                     scene.run(SKAction.playSoundFileNamed("thunder", waitForCompletion: false))
                     break
                 default:
                     break
                 }
-
+                
                 object2.isColliding = true
             }
         }
